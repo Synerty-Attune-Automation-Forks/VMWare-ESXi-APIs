@@ -54,13 +54,7 @@ This Project contains the following Blueprints.
 
 
 
-### Add New Network Adaptor on ESXi with macOS or Linux Worker
-
-
 ### Add New Network Adaptor on ESX with Windows Worker
-
-
-### Add New Virtual Disk on ESXi with macOS or Linux Worker
 
 
 ### Add New Virtual Disk on ESXi with Windows Worker
@@ -102,9 +96,18 @@ This Project contains the following Blueprints.
 ### Perform Test if VMWare Drivers Installed on Windows
 
 
+### Power Off/On Virtual Machine on ESXi with macOS or Linux Worker
+
+
 ### Setup VMWare Tools on Windows
 
 Post Windows install setup of VMWare tools for new VM Windows node.
+
+### Add New Network Adaptor on ESX with macOS or Linux Worker
+
+
+### Add New Virtual Disk on ESXi with macOS or Linux Worker
+
 
 
 
