@@ -1,0 +1,1 @@
+Power Off a ESXi virtual machine given it's fully qualified domain name.
