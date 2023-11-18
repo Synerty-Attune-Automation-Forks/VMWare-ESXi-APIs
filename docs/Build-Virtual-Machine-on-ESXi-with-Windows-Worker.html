@@ -775,7 +775,7 @@ if ( &quot;{vmwareEsxiHost.fqn}&quot; -eq &quot;{vmwareVcenterNode.fqn}&quot; ) 
                     <div class="row">
                         <div class="description col px-0">
                             <p>
-                                
+                                <p>https://communities.vmware.com/t5/VMware-PowerCLI-Discussions/Set-Enable-SecureBoot-PowerCLI/td-p/449027</p>
                             </p>
                         </div>
                     </div>
@@ -819,12 +819,23 @@ if ($? -eq $false) {
 $vm = Get-VM -Name &quot;{newVmNode.fqn}&quot;
 
 $spec = New-Object VMware.Vim.VirtualMachineConfigSpec
-if (&#x27;{virtualMachineBootLoaderIsUefi}&#x27; -eq &#x27;true&#x27;) {
+
+if (${{virtualMachineBootLoaderIsUefi}}) {
     $spec.Firmware = [VMware.Vim.GuestOsDescriptorFirmwareType]::efi
+    
+    $boot = New-Object VMware.Vim.VirtualMachineBootOptions
+    $boot.EfiSecureBootEnabled = $true
+    $spec.BootOptions = $boot
 }
-if (&#x27;{virtualMachineBootLoaderIsBios}&#x27; -eq &#x27;true&#x27;) {
+
+if (${{virtualMachineBootLoaderIsBios}}) {
     $spec.Firmware = [VMware.Vim.GuestOsDescriptorFirmwareType]::bios
+
+    $boot = New-Object VMware.Vim.VirtualMachineBootOptions
+    $boot.EfiSecureBootEnabled = $false
+    $spec.BootOptions = $boot
 }
+
 $vm.ExtensionData.ReconfigVM($spec)
                 </code>
             </pre>
@@ -880,9 +891,9 @@ $vm.ExtensionData.ReconfigVM($spec)
             <pre>
                 <code class="language-sql py-0">
 if ( &#x27;{vmGuestType}&#x27; -ne &#x27;winNetStandard64Guest&#x27; ) {
-    Wtite-Host &quot;This isn&#x27;t windows server VM, SAS not required&quot;
+    Write-Host &quot;This isn&#x27;t windows server VM, SAS not required&quot;
 } else {
-    Wtite-Host &quot;Switching to LSI Logic SAS Controller&quot;
+    Write-Host &quot;Switching to LSI Logic SAS Controller&quot;
 
     $ErrorActionPreference = &quot;Stop&quot;
     Import-Module VMware.VimAutomation.Core
@@ -1037,8 +1048,7 @@ if ( &#x27;{vmGuestType}&#x27; -ne &#x27;windows9_64Guest&#x27; ) {
         <div class="col px-0">
             <pre>
                 <code class="language-sql py-0">
-if ${{virtualMachineBootLoaderIsBios}}
-then
+if (${{virtualMachineBootLoaderIsBios}}) {
 
   $ErrorActionPreference = &quot;Stop&quot;
   Import-Module VMware.VimAutomation.Core
@@ -1075,9 +1085,9 @@ then
   # reconfig the VM to use the spec with the new BootOrder
   $vm.ExtensionData.ReconfigVM_Task($spec)
 
-else
+} else {
     echo &quot;Skipping for UEFI boot.&quot;
-fi
+}
                 </code>
             </pre>
         </div>
@@ -1103,6 +1113,9 @@ fi
                         <div class="description col px-0">
                             <p>
                                 <p>Sets the ESXi network adapter type to vmxnet3 for the target Windows virtual machine.</p>
+<p>Documentation for <code>Set-NetworkAdapter</code> is at
+https://developer.vmware.com/docs/powercli/latest/vmware.vimautomation.core/commands/set-networkadapter/#Default</p>
+<p>Pass in the <code>-Confirm:$false</code> option to <code>Set-NetworkAdapter</code> to disable it prompting for user confirmation.</p>
                             </p>
                         </div>
                     </div>
@@ -1143,7 +1156,19 @@ if ($? -eq $false) {
     exit 1
 }
 
-Get-VM -name {newVmNode.fqn} | Get-NetworkAdapter | Where { $_.Type -eq &quot;E1000E&quot;} | Set-NetworkAdapter -Type &quot;vmxnet3&quot;
+Write-Host &quot;newVmNode.fqn = {newVmNode.fqn}&quot;
+
+$NETWORK_ADAPTER = (Get-VM -name {newVmNode.fqn} `
+    | Get-NetworkAdapter `
+    | Where { $_.Type -eq &quot;E1000E&quot;})
+    
+$NAME = $NETWORK_ADAPTER.name
+$ID = $NETWORK_ADAPTER.id
+Write-Host &quot;NETWORK_ADAPTER.name = $NAME, id=$ID&quot;
+
+Set-NetworkAdapter -NetworkAdapter ${NETWORK_ADAPTER} `
+    -Type &quot;vmxnet3&quot; `
+    -Confirm:$false
                 </code>
             </pre>
         </div>
