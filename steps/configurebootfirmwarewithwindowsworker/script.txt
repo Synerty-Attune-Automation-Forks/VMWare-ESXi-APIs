@@ -13,10 +13,21 @@ if ($? -eq $false) {
 $vm = Get-VM -Name "{newVmNode.fqn}"
 
 $spec = New-Object VMware.Vim.VirtualMachineConfigSpec
-if ('{virtualMachineBootLoaderIsUefi}' -eq 'true') {
+
+if (${{virtualMachineBootLoaderIsUefi}}) {
     $spec.Firmware = [VMware.Vim.GuestOsDescriptorFirmwareType]::efi
+    
+    $boot = New-Object VMware.Vim.VirtualMachineBootOptions
+    $boot.EfiSecureBootEnabled = $true
+    $spec.BootOptions = $boot
 }
-if ('{virtualMachineBootLoaderIsBios}' -eq 'true') {
+
+if (${{virtualMachineBootLoaderIsBios}}) {
     $spec.Firmware = [VMware.Vim.GuestOsDescriptorFirmwareType]::bios
+
+    $boot = New-Object VMware.Vim.VirtualMachineBootOptions
+    $boot.EfiSecureBootEnabled = $false
+    $spec.BootOptions = $boot
 }
+
 $vm.ExtensionData.ReconfigVM($spec)
