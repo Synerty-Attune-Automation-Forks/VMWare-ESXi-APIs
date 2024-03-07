@@ -1,0 +1,7 @@
+{
+    "externalUuid4": "c6c8963e-e192-40c2-aa03-de958ad3e08b", 
+    "key": "destinationvmnode", 
+    "name": "Destination VM Node", 
+    "showInPlan": true, 
+    "type": "c.s.s.b.phv.Server"
+}
