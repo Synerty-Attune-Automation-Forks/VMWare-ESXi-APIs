@@ -1,0 +1,24 @@
+{
+    "actionOnStepFail": "stop", 
+    "concurrency": 1, 
+    "enabled": true, 
+    "externalUuid4": "80ab2e3a-c1e2-4aef-9acf-4f7832e70856", 
+    "isBlueprint": true, 
+    "key": "poweroffonvirtualmachineonesxiwithmacosorlinuxworker", 
+    "links": [
+        {
+            "order": 50, 
+            "stepKey": "setpowerclioptionswithmacosorlinuxworker"
+        }, 
+        {
+            "order": 150, 
+            "stepKey": "poweroffvmwithmacosorlinuxworker"
+        }, 
+        {
+            "order": 1050, 
+            "stepKey": "startvmwithmacosorlinuxworker"
+        }
+    ], 
+    "name": "Power Off/On Virtual Machine on ESXi with macOS or Linux Worker", 
+    "type": "com.servertribe.attune.tuples.StepGroupTuple"
+}

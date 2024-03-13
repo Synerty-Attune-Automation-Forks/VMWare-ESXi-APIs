@@ -1,7 +1,7 @@
 {
     "actionOnStepFail": null, 
     "enabled": true, 
-    "externalUuid4": "fb8dd2da-628a-48ae-a876-01ed45ef335f", 
+    "externalUuid4": "202c7a37-e425-41e4-883f-1cf0d0cd001c", 
     "interpreter": 1, 
     "key": "addnewnetworkadaptorwithmacosorlinuxworker", 
     "name": "Add New Network Adaptor with macOS or Linux Worker", 

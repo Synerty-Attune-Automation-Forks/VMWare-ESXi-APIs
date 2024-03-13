@@ -1,8 +1,8 @@
 {
-    "actionOnStepFail": null, 
+    "actionOnStepFail": "stop", 
     "concurrency": 1, 
     "enabled": true, 
-    "externalUuid4": "5669a03d-85fe-4f3e-8b95-da02cfc998dc", 
+    "externalUuid4": "09722734-8bd5-483a-ae6e-940690443e53", 
     "isBlueprint": true, 
     "key": "addnewvirtualdiskonesxiwithmacosorlinuxworker", 
     "links": [
