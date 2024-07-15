@@ -1,0 +1,7 @@
+{
+    "externalUuid4": "439b42ea-ea0f-4334-8819-5d3ca8d08fea", 
+    "key": "vmwarevmtemplatename", 
+    "name": "VMWare VM Template Name", 
+    "showInPlan": true, 
+    "type": "c.s.s.b.phv.Text"
+}

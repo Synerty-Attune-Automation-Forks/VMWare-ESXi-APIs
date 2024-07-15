@@ -1,5 +1,5 @@
 {
-    "actionOnStepFail": null, 
+    "actionOnStepFail": "stop", 
     "enabled": true, 
     "externalUuid4": "62befaca-eb44-429d-8117-c7b813c1e2d1", 
     "interpreter": 1, 

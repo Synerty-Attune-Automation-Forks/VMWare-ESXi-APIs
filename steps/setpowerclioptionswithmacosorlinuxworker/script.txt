@@ -1,5 +1,8 @@
-pwsh <<'EOF'
+
+pwsh -NonInteractive -NoProfile -Command - <<'EOF'
+Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+
 Import-Module VMware.VimAutomation.Core
 Set-PowerCLIConfiguration -Scope User -ParticipateInCEIP $false -Confirm:$false
 Set-PowerCLIConfiguration -InvalidCertificateAction ignore -Confirm:$false

@@ -1,0 +1,7 @@
+{
+    "externalUuid4": "4ebca659-239e-452b-8b3c-1608738688e2", 
+    "key": "oscustomizationspecname", 
+    "name": "OS Customization Spec Name", 
+    "showInPlan": true, 
+    "type": "c.s.s.b.phv.Text"
+}
