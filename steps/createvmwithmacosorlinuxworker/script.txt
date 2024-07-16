@@ -1,5 +1,8 @@
-pwsh <<'EOF'
+
+pwsh -NonInteractive -NoProfile -Command - <<'EOF'
+Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+
 Import-Module VMware.VimAutomation.Core
 
 Connect-VIServer {vmwareVcenterNode.ip} `
@@ -12,7 +15,6 @@ if ($? -eq $false) {
 }
 
 $name = "{newVmNode.fqn}"
-$storagePool = "{vmStoragePoolName}"
 $cpuCount = {vmCpuCount}
 $memInMb = {vmRamSizeGb}*1024
 $networkName = "{vmNetworkName}"
@@ -20,6 +22,7 @@ $guestType = "{vmGuestType}"
 
 if ( "{vmwareEsxiHost.fqn}" -eq "{vmwareVcenterNode.fqn}" ) {
     Write-Host "We're talking to the ESXi host, don't pass the -VMHost arg"
+    $storagePool = "{vmStoragePoolName}"
     $vm = New-VM `
         -Name "$name" `
         -Datastore "$storagePool" `
@@ -48,5 +51,11 @@ if ( "{vmwareEsxiHost.fqn}" -eq "{vmwareVcenterNode.fqn}" ) {
         -CD 
 
 }
+
+if ($? -eq $false) {
+    Write-Host "Error: Failed to create VM."
+    exit 1
+}
+
 
 EOF

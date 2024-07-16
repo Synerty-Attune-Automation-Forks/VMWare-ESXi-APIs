@@ -1,7 +1,8 @@
 
-# Create the new VM
-pwsh <<'EOF' | grep -v 'Uploading'
+pwsh -NonInteractive -NoProfile -Command - <<'EOF'
+Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+
 Import-Module VMware.VimAutomation.Core
 
 Connect-VIServer {vmwareVcenterNode.ip} `
