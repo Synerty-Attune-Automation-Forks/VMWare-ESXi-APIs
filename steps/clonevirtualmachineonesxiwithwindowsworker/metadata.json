@@ -1,0 +1,16 @@
+{
+    "actionOnStepFail": "stop", 
+    "concurrency": 1, 
+    "enabled": true, 
+    "externalUuid4": "340b21b8-6fbd-44be-ac52-85566248a441", 
+    "isBlueprint": true, 
+    "key": "clonevirtualmachineonesxiwithwindowsworker", 
+    "links": [
+        {
+            "order": 0, 
+            "stepKey": "clonevirtualmachinewithwindowsworker"
+        }
+    ], 
+    "name": "Clone Virtual Machine on ESXi with Windows Worker", 
+    "type": "com.servertribe.attune.tuples.StepGroupTuple"
+}

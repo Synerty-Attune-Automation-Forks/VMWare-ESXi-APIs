@@ -1,0 +1,22 @@
+Import-Module VMware.VimAutomation.Core
+
+Connect-VIServer {vmwareVcenterServer.ip} `
+    -User {vmwareVcenterUser.user} `
+    -Password {vmwareVcenterUser.password}
+
+# Get the source VM
+$sourceVM = Get-VM -Name "{sourceVmNode.fqn}"
+
+# Get the destination host and datastore
+$destinationHost = Get-VMHost -Name "{vmwareEsxiHost.fqn}"
+$destinationDatastore = Get-Datastore -Name "{vmStoragePoolName}"
+
+# Create the clone
+$cloneVM = New-VM `
+    -Name "{destinationVmNode.fqn}" `
+    -VM $sourceVM `
+    -VMHost $destinationHost `
+    -Datastore $destinationDatastore
+
+# Disconnect from the vCenter or ESXi host
+Disconnect-VIServer -Confirm:$false
