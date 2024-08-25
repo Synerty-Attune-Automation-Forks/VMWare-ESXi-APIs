@@ -1,0 +1,15 @@
+{
+    "actionOnStepFail": "stop", 
+    "concurrency": 1, 
+    "enabled": true, 
+    "externalUuid4": "93fda161-6b1f-4f6f-8061-8eba6e7d14c9", 
+    "isBlueprint": true, 
+    "key": "reverttosnapshotonesxwithmacosorlinuxworker", 
+    "links": [
+        {
+            "stepKey": "reverttosnapshotwithmacosorlinuxworker"
+        }
+    ], 
+    "name": "Revert To Snapshot on ESX with macOS or Linux Worker", 
+    "type": "com.servertribe.attune.tuples.StepGroupTuple"
+}
