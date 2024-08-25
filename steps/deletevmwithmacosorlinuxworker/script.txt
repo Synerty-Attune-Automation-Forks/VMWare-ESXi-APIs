@@ -1,5 +1,8 @@
-pwsh <<'EOF'
+
+pwsh -NonInteractive -NoProfile -Command - <<'EOF'
+Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+
 Import-Module VMware.VimAutomation.Core
 
 Connect-VIServer {vmwareVcenterNode.ip} `
@@ -11,13 +14,19 @@ if ($? -eq $false) {
     exit 1
 }
 
+$existing = $null;
 $existing = Get-VM "{newVmNode.fqn}"
-if ( $existing.count -eq 1 ) {
-    } else {
-        $existing = Get-VM "{newVmNode.hostname}"
-    }
 
-if ( $existing.count -eq 1 ) {
+if ( $existing ) {
+    Write-Host "We found the VM from the FQN"
+} else {
+    Write-Host "Getting VM by hostname"
+    $existing = Get-VM "{newVmNode.hostname}"
+}
+
+$existing
+
+if ( $existing ) {
     if ( $existing.PowerState -eq "PoweredOn" ) {
         "Stopping the VM"
         Stop-VM -VM $existing -Confirm:$false

@@ -1,0 +1,7 @@
+{
+    "externalUuid4": "c386d780-e020-4f71-8915-b3ea7443bfdd", 
+    "key": "newvmsubnet", 
+    "name": "New VM Subnet", 
+    "showInPlan": true, 
+    "type": "c.s.s.b.phv.Ip4Subnet"
+}
