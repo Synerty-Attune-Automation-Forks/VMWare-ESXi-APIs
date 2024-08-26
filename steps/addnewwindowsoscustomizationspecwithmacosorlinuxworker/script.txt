@@ -1,0 +1,34 @@
+pwsh -NonInteractive -NoProfile -Command - <<'EOF'
+Set-StrictMode -Version Latest
+$ErrorActionPreference = "Stop"
+
+Import-Module VMware.VimAutomation.Core
+
+Connect-VIServer {vmwareVcenterServer.ip} `
+    -User {vmwareVcenterUser.user} `
+    -Password {vmwareVcenterUser.password}
+
+$specName = "AttuneWinCustomSpec"
+
+# Check if the customization specification exists
+$existingSpec = Get-OSCustomizationSpec -Name $specName -ErrorAction SilentlyContinue
+
+if ($existingSpec) {
+    # If it exists, remove it
+    Write-Host "Removing existing customization specification: $specName"
+    Remove-OSCustomizationSpec -OSCustomizationSpec $specName -Confirm:$false
+}
+
+New-OSCustomizationSpec `
+    -Name $specName `
+    -OSType Windows `
+    -FullName "FullName" `
+    -OrgName "Organisation" `
+    -Workgroup "WORKGROUP" `
+    -ChangeSid `
+    -AdminPassword (
+        ConvertTo-SecureString "{newVmWindowsUserAdministrator.password}" `
+        -AsPlainText -Force
+    )
+
+EOF

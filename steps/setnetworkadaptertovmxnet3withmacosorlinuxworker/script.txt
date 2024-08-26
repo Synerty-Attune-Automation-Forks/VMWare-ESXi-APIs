@@ -1,6 +1,5 @@
 
-pwsh -NonInteractive -NoProfile -Command - <<'EOF'
-Set-StrictMode -Version Latest
+pwsh  <<'EOF'
 $ErrorActionPreference = "Stop"
 
 Import-Module VMware.VimAutomation.Core
