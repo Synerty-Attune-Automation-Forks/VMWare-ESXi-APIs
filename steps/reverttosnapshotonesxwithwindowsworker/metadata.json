@@ -1,0 +1,15 @@
+{
+    "actionOnStepFail": "stop", 
+    "concurrency": 1, 
+    "enabled": true, 
+    "externalUuid4": "2b8ff061-fde5-4bed-a23e-6ab5fbcb3dcb", 
+    "isBlueprint": true, 
+    "key": "reverttosnapshotonesxwithwindowsworker", 
+    "links": [
+        {
+            "stepKey": "reverttosnapshotwithwindowsworker"
+        }
+    ], 
+    "name": "Revert To Snapshot on ESX with Windows Worker", 
+    "type": "com.servertribe.attune.tuples.StepGroupTuple"
+}

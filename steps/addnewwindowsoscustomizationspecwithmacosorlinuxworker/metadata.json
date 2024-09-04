@@ -1,0 +1,12 @@
+{
+    "actionOnStepFail": "stop", 
+    "enabled": true, 
+    "externalUuid4": "395ffc6d-b08f-4d67-bbc9-f30cd83caf60", 
+    "interpreter": 1, 
+    "key": "addnewwindowsoscustomizationspecwithmacosorlinuxworker", 
+    "name": "Add New Windows OSCustomizationSpec with macOS or Linux Worker", 
+    "osCredKey": "automationworkerlinuxuser", 
+    "serverKey": "automationworkerlinuxnode", 
+    "successExitCode": 0, 
+    "type": "com.servertribe.attune.tuples.StepSshTuple"
+}
