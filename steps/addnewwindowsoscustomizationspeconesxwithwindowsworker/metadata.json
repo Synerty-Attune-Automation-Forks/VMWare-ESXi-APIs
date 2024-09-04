@@ -1,0 +1,15 @@
+{
+    "actionOnStepFail": "stop", 
+    "concurrency": 1, 
+    "enabled": true, 
+    "externalUuid4": "c6d9f0c5-9023-452b-b638-f09dd9c68a91", 
+    "isBlueprint": true, 
+    "key": "addnewwindowsoscustomizationspeconesxwithwindowsworker", 
+    "links": [
+        {
+            "stepKey": "addnewwindowsoscustomizationspecwithwindowsworker"
+        }
+    ], 
+    "name": "Add New Windows OSCustomizationSpec on ESX with Windows Worker", 
+    "type": "com.servertribe.attune.tuples.StepGroupTuple"
+}

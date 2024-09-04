@@ -1,0 +1,13 @@
+# Delete the VM if it exists
+
+pwsh <<'EOF'
+$ErrorActionPreference = "Stop"
+Import-Module VMware.VimAutomation.Core
+
+Connect-VIServer {vmwareVcenterServer.ip} `
+    -User {vmwareVcenterUser.user} `
+    -Password {vmwareVcenterUser.password}
+
+Set-VM -VM "{newVmNode.fqn}" -ToTemplate -Confirm:$false
+
+EOF
