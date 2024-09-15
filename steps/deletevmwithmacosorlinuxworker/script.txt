@@ -1,5 +1,8 @@
-pwsh <<'EOF'
+
+TERM=dumb pwsh -NonInteractive -NoProfile -Command - <<'EOF'
+Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+
 Import-Module VMware.VimAutomation.Core
 
 Connect-VIServer {vmwareVcenterNode.ip} `
@@ -11,13 +14,42 @@ if ($? -eq $false) {
     exit 1
 }
 
-$existing = Get-VM "{newVmNode.fqn}"
-if ( $existing.count -eq 1 ) {
-    } else {
-        $existing = Get-VM "{newVmNode.hostname}"
-    }
 
-if ( $existing.count -eq 1 ) {
+# Check for and delete Template
+$existingTemplate = $null
+$existingTemplate = Get-Template "{newVmNode.fqn}"
+
+if (-not $existingTemplate) {
+    Write-Host "Getting Template by hostname"
+    $existingTemplate = Get-Template "{newVmNode.hostname}"
+}
+
+if ($existingTemplate) {
+    Write-Host "Found Template: $($existingTemplate.Name)"
+    Write-Host "Removing the Template"
+    Remove-Template `
+        -Template $existingTemplate `
+        -DeletePermanently `
+        -Confirm:$false
+    exit 0;
+
+} 
+
+Write-Host "No Template found with the specified name, looking for VMs"
+
+$existing = $null;
+$existing = Get-VM "{newVmNode.fqn}"
+
+if ( $existing ) {
+    Write-Host "We found the VM from the FQN"
+} else {
+    Write-Host "Getting VM by hostname"
+    $existing = Get-VM "{newVmNode.hostname}"
+}
+
+$existing
+
+if ( $existing ) {
     if ( $existing.PowerState -eq "PoweredOn" ) {
         "Stopping the VM"
         Stop-VM -VM $existing -Confirm:$false

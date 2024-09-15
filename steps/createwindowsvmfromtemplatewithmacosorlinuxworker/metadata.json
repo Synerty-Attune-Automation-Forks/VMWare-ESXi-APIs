@@ -1,0 +1,12 @@
+{
+    "actionOnStepFail": "stop", 
+    "enabled": true, 
+    "externalUuid4": "430ab857-c49f-43a8-acd1-2724be924f0a", 
+    "interpreter": 1, 
+    "key": "createwindowsvmfromtemplatewithmacosorlinuxworker", 
+    "name": "Create Windows VM from Template with macOS or Linux Worker", 
+    "osCredKey": "automationworkerlinuxuser", 
+    "serverKey": "automationworkerlinuxnode", 
+    "successExitCode": 0, 
+    "type": "com.servertribe.attune.tuples.StepSshTuple"
+}

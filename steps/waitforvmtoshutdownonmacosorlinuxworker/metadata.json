@@ -1,0 +1,15 @@
+{
+    "actionOnStepFail": "stop", 
+    "concurrency": 1, 
+    "enabled": true, 
+    "externalUuid4": "56f108df-10cf-426c-9a87-624e1ec0d953", 
+    "isBlueprint": true, 
+    "key": "waitforvmtoshutdownonmacosorlinuxworker", 
+    "links": [
+        {
+            "stepKey": "waitforvmtoshutdownonmacosorlinuxworkerstep"
+        }
+    ], 
+    "name": "Wait for VM to Shutdown on macOS or Linux Worker", 
+    "type": "com.servertribe.attune.tuples.StepGroupTuple"
+}

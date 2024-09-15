@@ -1,0 +1,12 @@
+{
+    "actionOnStepFail": "stop", 
+    "enabled": true, 
+    "externalUuid4": "9f1b425c-8fdc-41a1-8ced-0055c343ee78", 
+    "interpreter": 1, 
+    "key": "reverttosnapshotwithmacosorlinuxworker", 
+    "name": "Revert To Snapshot with macOS or Linux Worker", 
+    "osCredKey": "automationworkerlinuxuser", 
+    "serverKey": "automationworkerlinuxnode", 
+    "successExitCode": 0, 
+    "type": "com.servertribe.attune.tuples.StepSshTuple"
+}

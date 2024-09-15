@@ -1,0 +1,31 @@
+# Delete the VM if it exists
+
+pwsh <<'EOF'
+$ErrorActionPreference = "Stop"
+Import-Module VMware.VimAutomation.Core
+
+Connect-VIServer {vmwareVcenterServer.ip} `
+    -User {vmwareVcenterUser.user} `
+    -Password {vmwareVcenterUser.password}
+
+$existing = Get-VM "{newVmNode.fqn}"
+
+# Specify the name and description for the snapshot
+$snapshotName = "Snapshot_$(Get-Date -Format 'yyyyMMdd_HHmmss')"
+$snapshotDescription = "Automated snapshot taken by {automationWorkerLinuxNode.hostname}"
+
+# Take the snapshot
+$snapshot = New-Snapshot `
+    -VM $existing `
+    -Name $snapshotName `
+    -Description $snapshotDescription `
+    -Memory
+
+# Output the result
+if ($snapshot) {
+    Write-Host "Snapshot '$snapshotName' created successfully"
+} else {
+    Write-Error "Failed to create snapshot'"
+}
+
+EOF

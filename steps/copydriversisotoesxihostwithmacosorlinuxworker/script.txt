@@ -4,8 +4,11 @@ then
     echo "This build doesn't have a {automationWorkerLinuxBaseDirectory}/drivers_{newVmNode.fqn}.iso."
 else
 
-    pwsh <<'EOF' | grep -v 'Uploading'
+
+    pwsh -NonInteractive -NoProfile -Command - <<'EOF'
+    Set-StrictMode -Version Latest
     $ErrorActionPreference = "Stop"
+
     Import-Module VMware.VimAutomation.Core
     
     Connect-VIServer {vmwareVcenterNode.ip} `

@@ -1,0 +1,15 @@
+{
+    "actionOnStepFail": "stop", 
+    "concurrency": 1, 
+    "enabled": true, 
+    "externalUuid4": "b58e5fc1-f469-4a9b-93fe-b4dc16697b59", 
+    "isBlueprint": true, 
+    "key": "convertvmtotemplateonesxwithmacosorlinuxworker", 
+    "links": [
+        {
+            "stepKey": "convertvmtotemplatewithmacosorlinuxworker"
+        }
+    ], 
+    "name": "Convert VM to Template on ESX with macOS or Linux Worker", 
+    "type": "com.servertribe.attune.tuples.StepGroupTuple"
+}

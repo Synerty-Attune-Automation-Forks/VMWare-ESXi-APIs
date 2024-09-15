@@ -1,0 +1,12 @@
+{
+    "actionOnStepFail": "stop", 
+    "enabled": true, 
+    "externalUuid4": "11da5f94-0980-44a0-996d-5e6051142af0", 
+    "interpreter": 1, 
+    "key": "createlinuxvmfromtemplatewithmacosorlinuxworkeruntested", 
+    "name": "Create Linux VM from Template with macOS or Linux Worker UNTESTED", 
+    "osCredKey": "automationworkerlinuxuser", 
+    "serverKey": "automationworkerlinuxnode", 
+    "successExitCode": 0, 
+    "type": "com.servertribe.attune.tuples.StepSshTuple"
+}

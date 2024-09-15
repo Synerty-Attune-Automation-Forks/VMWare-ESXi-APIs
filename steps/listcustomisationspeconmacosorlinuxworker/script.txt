@@ -1,0 +1,49 @@
+
+TERM=dumb pwsh -NonInteractive -NoProfile -Command - <<'EOF'
+Set-StrictMode -Version Latest
+$ErrorActionPreference = "Stop"
+
+Import-Module VMware.VimAutomation.Core
+
+Connect-VIServer {vmwareVcenterServer.ip} `
+    -User {vmwareVcenterUser.user} `
+    -Password {vmwareVcenterUser.password}
+
+
+# Stop Powershell echoing out the commands
+Set-PSDebug -Off
+
+# Show the persistent customisations
+Write-Host "."
+Write-Host " === Persistent Customisation Specifications === "
+Get-OSCustomizationSpec -Type Persistent |
+    Format-Table -AutoSize -Property Name
+Write-Host "."
+
+# Show the non-persistent customisations
+Write-Host "."
+Write-Host " === NonPersistent Customisation Specifications === "
+Get-OSCustomizationSpec -Type NonPersistent |
+    Format-Table -AutoSize -Property Name
+Write-Host "."
+
+Get-OSCustomizationSpec | Format-List *
+
+# # Get the customization specification
+# $customSpec = Get-OSCustomizationSpec -Name <CustomSpecName>
+
+# # Print basic information about the spec
+# Write-Host "Customization Specification: $($customSpec.Name)"
+# Write-Host "Description: $($customSpec.Description)"
+# Write-Host "Type: $($customSpec.Type)"
+
+# # Print more detailed information
+# Write-Host "`nDetailed Information:"
+# $customSpec | Format-List *
+
+# # If you want to see the NIC mapping information
+# Write-Host "`nNIC Mapping:"
+# $customSpec.NicMapping | Format-Table
+
+
+EOF

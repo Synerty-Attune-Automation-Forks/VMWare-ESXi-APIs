@@ -1,0 +1,1 @@
+This is the name of the virtual machine to use as the template to clone for the new virtual machine.

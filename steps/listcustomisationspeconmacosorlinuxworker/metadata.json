@@ -1,0 +1,12 @@
+{
+    "actionOnStepFail": "stop", 
+    "enabled": true, 
+    "externalUuid4": "b7c6305f-610d-48c3-8506-6873283a2ade", 
+    "interpreter": 1, 
+    "key": "listcustomisationspeconmacosorlinuxworker", 
+    "name": "List Customisation Spec on macOS or Linux Worker", 
+    "osCredKey": "automationworkerlinuxuser", 
+    "serverKey": "automationworkerlinuxnode", 
+    "successExitCode": 0, 
+    "type": "com.servertribe.attune.tuples.StepSshTuple"
+}

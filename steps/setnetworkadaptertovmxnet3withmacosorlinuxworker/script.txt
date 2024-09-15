@@ -1,5 +1,7 @@
-pwsh <<'EOF' 
+
+pwsh  <<'EOF'
 $ErrorActionPreference = "Stop"
+
 Import-Module VMware.VimAutomation.Core
 
 Connect-VIServer {vmwareVcenterNode.ip} `
