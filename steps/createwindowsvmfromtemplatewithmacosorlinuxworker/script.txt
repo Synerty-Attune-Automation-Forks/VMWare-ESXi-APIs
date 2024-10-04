@@ -166,7 +166,8 @@ if ( "{vmwareEsxiHost.fqn}" -eq "{vmwareVcenterNode.fqn}" ) {
         -Name "$name" `
         -Datastore "$storagePool" `
         -NetworkName "$networkName" `
-        -OSCustomizationSpec $tempSpec
+        -OSCustomizationSpec $tempSpec `
+        -ProgressAction SilentlyContinue
 
 } else {
     Write-Host "We're talking to a vCenter server, pass the -VMHost arg"
@@ -180,7 +181,8 @@ if ( "{vmwareEsxiHost.fqn}" -eq "{vmwareVcenterNode.fqn}" ) {
         -Name "$name" `
         -Datastore "$storagePool" `
         -NetworkName "$networkName" `
-        -OSCustomizationSpec $tempSpec
+        -OSCustomizationSpec $tempSpec `
+        -ProgressAction SilentlyContinue
 
 }
 
