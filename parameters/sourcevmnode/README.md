@@ -1,0 +1,1 @@
+The source virtual machine, for example, for a clone operation.
