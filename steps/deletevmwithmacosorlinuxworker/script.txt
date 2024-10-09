@@ -1,5 +1,5 @@
 
-pwsh -NonInteractive -NoProfile -Command - <<'EOF'
+TERM=dumb pwsh -NonInteractive -NoProfile -Command - <<'EOF'
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
@@ -13,6 +13,29 @@ if ($? -eq $false) {
     Write-Host "Error: Not connected."
     exit 1
 }
+
+
+# Check for and delete Template
+$existingTemplate = $null
+$existingTemplate = Get-Template "{newVmNode.fqn}"
+
+if (-not $existingTemplate) {
+    Write-Host "Getting Template by hostname"
+    $existingTemplate = Get-Template "{newVmNode.hostname}"
+}
+
+if ($existingTemplate) {
+    Write-Host "Found Template: $($existingTemplate.Name)"
+    Write-Host "Removing the Template"
+    Remove-Template `
+        -Template $existingTemplate `
+        -DeletePermanently `
+        -Confirm:$false
+    exit 0;
+
+} 
+
+Write-Host "No Template found with the specified name, looking for VMs"
 
 $existing = $null;
 $existing = Get-VM "{newVmNode.fqn}"

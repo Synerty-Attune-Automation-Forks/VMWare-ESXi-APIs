@@ -10,6 +10,6 @@ Connect-VIServer {vmwareVcenterServer.ip} `
 
 $existing = Get-VM "{newVmNode.fqn}"
 
-New-NetworkAdapter -VM $existing -NetworkName "{ksVmwareNetworkName.value}" -type vmxnet3 -StartConnected
+New-NetworkAdapter -VM $existing -NetworkName "{ksVmwareNetworkNameNic2.value}" -type vmxnet3 -StartConnected
 
 EOF

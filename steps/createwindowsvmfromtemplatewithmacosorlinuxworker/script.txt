@@ -1,9 +1,18 @@
 
-pwsh -NonInteractive -NoProfile -Command - <<'EOF'
+TERM=dumb pwsh -NonInteractive -NoProfile -Command - <<'EOF'
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 Import-Module VMware.VimAutomation.Core
+
+
+# Validate inputs for
+$hostname = "{newVmNode.hostname}"
+Write-Host "CHECKING: Hostname '$hostname' ($($hostname.Length)) is no more than 15 characters."
+if ($hostname.Length -gt 15) {
+    Write-Host "ERROR: Hostname '$hostname' is longer than 15 characters. This will cause the create from template to fail."
+    exit 1
+}
 
 function Split-StringIntoChunks($str, $chunkSize) {
     for ($i = 0; $i -lt $str.Length; $i += $chunkSize) {
@@ -105,74 +114,43 @@ Connect-VIServer {vmwareVcenterServer.ip} `
     -User {vmwareVcenterUser.user} `
     -Password {vmwareVcenterUser.password}
 
-# Get the original spec
-$originalSpec = Get-OSCustomizationSpec `
-    -Name "{osCustomizationSpecName.value}"
+$enableWinRmPs1 = Make-AutounattendCommandsFromFile
 
-# Delete the tempory copy if it exists
-Get-OSCustomizationSpec `
-    -Name "{newVmNode.fqn}_spec" `
-    -ErrorAction SilentlyContinue |
-    Remove-OSCustomizationSpec -Confirm:$false
-
-# Create a temporary copy
 $tempSpec = New-OSCustomizationSpec `
+    -Type NonPersistent `
     -Name "{newVmNode.fqn}_spec" `
-    -OSCustomizationSpec $originalSpec
+    -OSType Windows `
+    -FullName "AttuneOps" `
+    -OrgName "AttuneOps"  `
+    -Workgroup "WORKGROUP" `
+    -AdminPassword '{newVmWindowsUserAdministrator.password}' `
+    -NamingScheme Fixed `
+    -NamingPrefix "{newVmNode.hostname}" `
+    -ChangeSid `
+    -AutoLogonCount 1 `
+    -GuiRunOnce $enableWinRmPs1
 
-# Validate inputs for
-if ( $tempSpec.OSType -eq 'Windows' ) {
-    $hostname = "{newVmNode.hostname}"
-    Write-Host "CHECKING: Hostname '$hostname' ($($hostname.Length)) is no more than 15 characters."
-    if ($hostname.Length -gt 15) {
-        Write-Host "ERROR: Hostname '$hostname' is longer than 15 characters. This will cause the create from template to fail."
-        exit 1
-    }
+# Immediately after creating $tempSpec, let's verify it exists:
+if (-not $tempSpec) {
+    Write-Error "Failed to create customization spec"
+    exit 1
 }
 
-if ( $tempSpec.OSType -eq 'Windows' ) {
-    echo "Customising the specification for windows"
-    if ( -not "{newVmSubnet.dns2}" ) {
-        $dns = "{newVmSubnet.dns1}"
-    } else {
-        $dns = "{newVmSubnet.dns1}", "{newVmSubnet.dns2}"
-    }
 
-    $enableWinRmPs1 = Make-AutounattendCommandsFromFile
-
-    Get-OSCustomizationNicMapping -Spec $tempSpec |
-        Set-OSCustomizationNicMapping `
-            -IpMode UseStaticIP `
-            -IPAddress {newVmNode.ip} `
-            -Subnetmask {newVmSubnet.netmask} `
-            -DefaultGateway {newVmSubnet.gateway} `
-            -Dns $dns
-
-    # Modify the temp spec
-    Set-OSCustomizationSpec -Spec $tempSpec `
-        -Name $tempSpec.Name `
-        -NamingScheme Fixed `
-        -NamingPrefix "{newVmNode.hostname}" `
-        -GuiRunOnce $enableWinRmPs1
-
+echo "Customising the specification for windows"
+if ( -not "{newVmSubnet.dns2}" ) {
+    $dns = "{newVmSubnet.dns1}"
 } else {
-    echo "Customising the specification for not windows"
-
-# Modify the temp spec
-    Set-OSCustomizationSpec -Spec $tempSpec `
-        -Name $tempSpec.Name `
-        -NamingScheme Fixed `
-        -NamingPrefix "{newVmNode.hostname}" `
-
-
-    Get-OSCustomizationNicMapping -Spec $tempSpec |
-        Set-OSCustomizationNicMapping `
-            -IpMode UseStaticIP `
-            -IPAddress {newVmNode.ip} `
-            -Subnetmask {newVmSubnet.netmask} `
-            -DefaultGateway {newVmSubnet.gateway}
-
+    $dns = "{newVmSubnet.dns1}", "{newVmSubnet.dns2}"
 }
+
+Get-OSCustomizationNicMapping -Spec $tempSpec |
+    Set-OSCustomizationNicMapping `
+        -IpMode UseStaticIP `
+        -IPAddress {newVmNode.ip} `
+        -Subnetmask {newVmSubnet.netmask} `
+        -DefaultGateway {newVmSubnet.gateway} `
+        -Dns $dns
 
 $name = "{newVmNode.fqn}"
 $cpuCount = {vmCpuCount}
@@ -188,7 +166,8 @@ if ( "{vmwareEsxiHost.fqn}" -eq "{vmwareVcenterNode.fqn}" ) {
         -Name "$name" `
         -Datastore "$storagePool" `
         -NetworkName "$networkName" `
-        -OSCustomizationSpec $tempSpec
+        -OSCustomizationSpec $tempSpec `
+        -ProgressAction SilentlyContinue
 
 } else {
     Write-Host "We're talking to a vCenter server, pass the -VMHost arg"
@@ -202,7 +181,8 @@ if ( "{vmwareEsxiHost.fqn}" -eq "{vmwareVcenterNode.fqn}" ) {
         -Name "$name" `
         -Datastore "$storagePool" `
         -NetworkName "$networkName" `
-        -OSCustomizationSpec $tempSpec
+        -OSCustomizationSpec $tempSpec `
+        -ProgressAction SilentlyContinue
 
 }
 
@@ -216,9 +196,6 @@ $vm | Set-VM `
     -NumCpu $cpuCount `
     -MemoryMB $memInMb `
     -Confirm:$false
-
-# Clean up
-Remove-OSCustomizationSpec -Spec $tempSpec -Confirm:$false
 
 # Disconnect from vCenter
 Disconnect-VIServer -Confirm:$false

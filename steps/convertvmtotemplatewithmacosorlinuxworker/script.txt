@@ -1,6 +1,6 @@
 # Delete the VM if it exists
 
-pwsh <<'EOF'
+TERM=dumb pwsh <<'EOF'
 $ErrorActionPreference = "Stop"
 Import-Module VMware.VimAutomation.Core
 

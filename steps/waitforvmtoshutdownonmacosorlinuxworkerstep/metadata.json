@@ -1,10 +1,10 @@
 {
     "actionOnStepFail": "stop", 
     "enabled": true, 
-    "externalUuid4": "430ab857-c49f-43a8-acd1-2724be924f0a", 
+    "externalUuid4": "c11d29c9-bf1d-4359-8831-98967464d2f8", 
     "interpreter": 1, 
-    "key": "createvmfromtemplatewithmacosorlinuxworker", 
-    "name": "Create VM from Template with macOS or Linux Worker", 
+    "key": "waitforvmtoshutdownonmacosorlinuxworkerstep", 
+    "name": "Wait for VM to Shutdown on macOS or Linux Worker Step", 
     "osCredKey": "automationworkerlinuxuser", 
     "serverKey": "automationworkerlinuxnode", 
     "successExitCode": 0, 

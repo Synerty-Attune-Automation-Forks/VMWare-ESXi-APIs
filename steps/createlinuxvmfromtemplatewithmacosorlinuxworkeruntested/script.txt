@@ -1,0 +1,76 @@
+
+pwsh -NonInteractive -NoProfile -Command - <<'EOF'
+Set-StrictMode -Version Latest
+$ErrorActionPreference = "Stop"
+
+Import-Module VMware.VimAutomation.Core
+
+echo "Customising the specification for not windows"
+
+$tempSpec = New-OSCustomizationSpec `
+    -Type NonPersistent `
+    -Name "{newVmNode.fqn}_spec" `
+    -OSType Linux
+
+# Modify the temp spec
+Set-OSCustomizationSpec -Spec $tempSpec `
+    -Name $tempSpec.Name `
+    -NamingScheme Fixed `
+    -NamingPrefix "{newVmNode.hostname}" `
+
+
+Get-OSCustomizationNicMapping -Spec $tempSpec |
+    Set-OSCustomizationNicMapping `
+        -IpMode UseStaticIP `
+        -IPAddress {newVmNode.ip} `
+        -Subnetmask {newVmSubnet.netmask} `
+        -DefaultGateway {newVmSubnet.gateway}
+
+
+$name = "{newVmNode.fqn}"
+$cpuCount = {vmCpuCount}
+$memInMb = {vmRamSizeGb}*1024
+$networkName = "{vmNetworkName}"
+
+if ( "{vmwareEsxiHost.fqn}" -eq "{vmwareVcenterNode.fqn}" ) {
+    Write-Host "We're talking to the ESXi host, don't pass the -VMHost arg"
+    $storagePool = "{vmStoragePoolName}"
+    # Deploy the VM with the modified spec
+    $vm = New-VM `
+        -Template "{vmwareVmTemplateName.value}" `
+        -Name "$name" `
+        -Datastore "$storagePool" `
+        -NetworkName "$networkName" `
+        -OSCustomizationSpec $tempSpec
+
+} else {
+    Write-Host "We're talking to a vCenter server, pass the -VMHost arg"
+    $storagePool = Get-VMHost -Name '{vmwareEsxiHost.fqn}' |
+        Get-Datastore -Name '{vmStoragePoolName}'
+
+        # Deploy the VM with the modified spec
+    $vm = New-VM `
+        -Template "{vmwareVmTemplateName.value}" `
+        -VMHost "{vmwareEsxiHost.fqn}" `
+        -Name "$name" `
+        -Datastore "$storagePool" `
+        -NetworkName "$networkName" `
+        -OSCustomizationSpec $tempSpec
+
+}
+
+if ($? -eq $false) {
+    Write-Host "Error: Failed to create VM."
+    exit 1
+}
+
+$vm | Set-VM `
+    -CoresPerSocket $cpuCount `
+    -NumCpu $cpuCount `
+    -MemoryMB $memInMb `
+    -Confirm:$false
+
+# Disconnect from vCenter
+Disconnect-VIServer -Confirm:$false
+
+EOF
