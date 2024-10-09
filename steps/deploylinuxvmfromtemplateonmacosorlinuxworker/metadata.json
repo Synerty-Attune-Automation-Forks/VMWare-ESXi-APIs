@@ -2,9 +2,9 @@
     "actionOnStepFail": "stop", 
     "concurrency": 1, 
     "enabled": true, 
-    "externalUuid4": "aeced3e6-b3d5-4ce5-8b81-83521128170a", 
+    "externalUuid4": "9ba429f5-dd54-4f9a-bdad-142727d09717", 
     "isBlueprint": true, 
-    "key": "deployvmfromtemplateonmacosorlinuxworker", 
+    "key": "deploylinuxvmfromtemplateonmacosorlinuxworker", 
     "links": [
         {
             "stepKey": "listcustomisationspeconmacosorlinuxworker"
@@ -13,12 +13,12 @@
             "stepKey": "deletevmwithmacosorlinuxworker"
         }, 
         {
-            "stepKey": "createvmfromtemplatewithmacosorlinuxworker"
+            "stepKey": "createlinuxvmfromtemplatewithmacosorlinuxworkeruntested"
         }, 
         {
             "stepKey": "startvmwithmacosorlinuxworker"
         }
     ], 
-    "name": "Deploy VM From Template on macOS or Linux Worker", 
+    "name": "Deploy Linux VM From Template on macOS or Linux Worker", 
     "type": "com.servertribe.attune.tuples.StepGroupTuple"
 }

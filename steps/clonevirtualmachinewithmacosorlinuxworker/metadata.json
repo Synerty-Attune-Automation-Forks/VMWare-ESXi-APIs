@@ -1,10 +1,10 @@
 {
     "actionOnStepFail": "stop", 
     "enabled": true, 
-    "externalUuid4": "202c7a37-e425-41e4-883f-1cf0d0cd001c", 
+    "externalUuid4": "11daac1a-eb8d-40bf-b65f-fd965fc76819", 
     "interpreter": 1, 
-    "key": "addnewnetworkadaptorwithmacosorlinuxworker", 
-    "name": "Add New Network Adaptor with macOS or Linux Worker", 
+    "key": "clonevirtualmachinewithmacosorlinuxworker", 
+    "name": "Clone Virtual Machine with macOS or Linux Worker", 
     "osCredKey": "automationworkerlinuxuser", 
     "serverKey": "automationworkerlinuxnode", 
     "successExitCode": 0, 
