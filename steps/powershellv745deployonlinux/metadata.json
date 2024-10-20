@@ -1,0 +1,13 @@
+{
+    "actionOnStepFail": "stop", 
+    "archiveKey": "powershellv745", 
+    "deployPath": "ks_vmware_apis", 
+    "enabled": true, 
+    "externalUuid4": "a8f85c9b-ed0e-42ca-b018-aff820e45ce2", 
+    "key": "powershellv745deployonlinux", 
+    "name": "Powershell v7.4.5 Deploy on Linux", 
+    "osCredKey": "automationworkerlinuxuser", 
+    "serverKey": "automationworkerlinuxnode", 
+    "type": "com.servertribe.attune.tuples.StepPushDesignFileTuple", 
+    "unpack": true
+}

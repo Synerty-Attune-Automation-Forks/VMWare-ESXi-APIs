@@ -1,0 +1,3 @@
+TERM=dumb pwsh <<'EOF'
+$PSVersionTable.PSVersion
+EOF

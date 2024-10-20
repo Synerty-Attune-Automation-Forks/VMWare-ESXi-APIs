@@ -1,0 +1,3 @@
+
+echo "Deleting ks_vmware_apis"
+[ ! -e "ks_vmware_apis" ] || rm -rf "ks_vmware_apis"

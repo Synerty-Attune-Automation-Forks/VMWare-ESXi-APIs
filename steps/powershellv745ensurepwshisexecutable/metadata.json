@@ -1,0 +1,12 @@
+{
+    "actionOnStepFail": "stop", 
+    "enabled": true, 
+    "externalUuid4": "28c71102-f350-4dab-8fe5-e84f8ad0ee12", 
+    "interpreter": 1, 
+    "key": "powershellv745ensurepwshisexecutable", 
+    "name": "Powershell v7.4.5 Ensure pwsh is executable", 
+    "osCredKey": "automationworkerlinuxuser", 
+    "serverKey": "automationworkerlinuxnode", 
+    "successExitCode": 0, 
+    "type": "com.servertribe.attune.tuples.StepSshTuple"
+}

@@ -1,0 +1,11 @@
+{
+    "externalUuid4": "5d7970de-1727-4356-965e-9487bada8b57", 
+    "fileName": "Attune_VMWarePowerCLI.tar.bz2", 
+    "formatKey": "tar.bz2", 
+    "key": "vmwarepowercliv13", 
+    "md5": "6a4f78e5da6cb51adee33e949db21883", 
+    "name": "VMWare.PowerCLI v13", 
+    "remoteUri": null, 
+    "size": 126041604, 
+    "type": "com.servertribe.attune.tuples.FileArchiveLargeTuple"
+}
