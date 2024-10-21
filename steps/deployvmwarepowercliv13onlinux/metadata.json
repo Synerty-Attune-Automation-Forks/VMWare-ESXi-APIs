@@ -1,0 +1,13 @@
+{
+    "actionOnStepFail": "stop", 
+    "archiveKey": "vmwarepowercliv13", 
+    "deployPath": ".local/share/powershell/Modules", 
+    "enabled": true, 
+    "externalUuid4": "847ff195-894c-4de3-b42a-a09470819402", 
+    "key": "deployvmwarepowercliv13onlinux", 
+    "name": "Deploy VMWare.PowerCLI v13 on Linux", 
+    "osCredKey": "automationworkerlinuxuser", 
+    "serverKey": "automationworkerlinuxnode", 
+    "type": "com.servertribe.attune.tuples.StepPushDesignFileTuple", 
+    "unpack": true
+}
