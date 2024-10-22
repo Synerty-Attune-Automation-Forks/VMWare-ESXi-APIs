@@ -1,0 +1,11 @@
+{
+    "externalUuid4": "d8d0738d-883c-498f-8d25-6278135567d2", 
+    "fileName": "powershell-7.4.5-linux-x64.tar.gz", 
+    "formatKey": "tar.gz", 
+    "key": "powershellv745", 
+    "md5": "9dd46f28390cddb0cbc2a7b6013c0a68", 
+    "name": "Powershell v7.4.5", 
+    "remoteUri": "https://github.com/PowerShell/PowerShell/releases/download/v7.4.5/powershell-7.4.5-linux-x64.tar.gz", 
+    "size": 70898869, 
+    "type": "com.servertribe.attune.tuples.FileArchiveLargeTuple"
+}
