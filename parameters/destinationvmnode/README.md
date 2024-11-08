@@ -1,0 +1,1 @@
+The destination virtual machine, for example, for a clone operation.

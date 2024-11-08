@@ -1,0 +1,15 @@
+{
+    "actionOnStepFail": "stop", 
+    "concurrency": 1, 
+    "enabled": true, 
+    "externalUuid4": "32ccac8a-45fc-4819-99ae-d65b0e644796", 
+    "isBlueprint": true, 
+    "key": "convertvmtotemplateonesxwithwindowsworker", 
+    "links": [
+        {
+            "stepKey": "convertvmtotemplatewithwindowsworker"
+        }
+    ], 
+    "name": "Convert VM to Template on ESX with Windows Worker", 
+    "type": "com.servertribe.attune.tuples.StepGroupTuple"
+}

@@ -1,10 +1,10 @@
 {
     "actionOnStepFail": "stop", 
     "enabled": true, 
-    "externalUuid4": "202c7a37-e425-41e4-883f-1cf0d0cd001c", 
+    "externalUuid4": "25310423-7d3c-43ea-8ea7-2a6447e55970", 
     "interpreter": 1, 
-    "key": "addnewnetworkadaptorwithmacosorlinuxworker", 
-    "name": "Add New Network Adaptor with macOS or Linux Worker", 
+    "key": "powershellv745testpwsh", 
+    "name": "Powershell v7.4.5 Test pwsh", 
     "osCredKey": "automationworkerlinuxuser", 
     "serverKey": "automationworkerlinuxnode", 
     "successExitCode": 0, 

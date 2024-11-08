@@ -1,10 +1,10 @@
 {
     "actionOnStepFail": "stop", 
     "enabled": true, 
-    "externalUuid4": "202c7a37-e425-41e4-883f-1cf0d0cd001c", 
+    "externalUuid4": "c11d29c9-bf1d-4359-8831-98967464d2f8", 
     "interpreter": 1, 
-    "key": "addnewnetworkadaptorwithmacosorlinuxworker", 
-    "name": "Add New Network Adaptor with macOS or Linux Worker", 
+    "key": "waitforvmtoshutdownonmacosorlinuxworkerstep", 
+    "name": "Wait for VM to Shutdown on macOS or Linux Worker Step", 
     "osCredKey": "automationworkerlinuxuser", 
     "serverKey": "automationworkerlinuxnode", 
     "successExitCode": 0, 

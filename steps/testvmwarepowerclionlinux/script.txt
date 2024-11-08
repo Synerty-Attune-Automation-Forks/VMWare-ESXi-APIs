@@ -1,0 +1,8 @@
+
+TERM=dumb pwsh -NonInteractive -NoProfile -Command - <<'EOF'
+$ErrorActionPreference = "Stop"
+Import-Module VMware.VimAutomation.Core
+Set-PowerCLIConfiguration -Scope User -ParticipateInCEIP $false -Confirm:$false
+Set-PowerCLIConfiguration -InvalidCertificateAction ignore -Confirm:$false
+
+EOF

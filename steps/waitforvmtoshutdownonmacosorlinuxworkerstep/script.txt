@@ -1,0 +1,20 @@
+TERM=dumb pwsh -NonInteractive -NoProfile -Command - <<'EOF'
+Set-StrictMode -Version Latest
+$ErrorActionPreference = "Stop"
+
+Import-Module VMware.VimAutomation.Core
+
+Connect-VIServer {vmwareVcenterServer.ip} `
+    -User {vmwareVcenterUser.user} `
+    -Password {vmwareVcenterUser.password}
+
+$vmName = "{newVmNode.fqn}"
+
+while ((Get-VM $vmName).PowerState -ne "PoweredOff") {
+    Write-Host "Waiting for VM to shut down... Current state: $((Get-VM $vmName).PowerState)"
+    Start-Sleep -Seconds 10
+}
+
+Write-Host "VM {newVmNode.fqn} is shutdown"
+
+EOF

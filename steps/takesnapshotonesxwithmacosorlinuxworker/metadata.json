@@ -1,0 +1,15 @@
+{
+    "actionOnStepFail": "stop", 
+    "concurrency": 1, 
+    "enabled": true, 
+    "externalUuid4": "48ddea46-f950-4780-95ab-2d2ce26e8d9b", 
+    "isBlueprint": true, 
+    "key": "takesnapshotonesxwithmacosorlinuxworker", 
+    "links": [
+        {
+            "stepKey": "takesnapshotwithmacosorlinuxworker"
+        }
+    ], 
+    "name": "Take Snapshot on ESX with macOS or Linux Worker", 
+    "type": "com.servertribe.attune.tuples.StepGroupTuple"
+}

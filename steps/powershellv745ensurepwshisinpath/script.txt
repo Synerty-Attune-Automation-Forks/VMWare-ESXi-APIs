@@ -1,0 +1,7 @@
+if grep ks_vmware_apis ~/.bashrc
+then
+    echo "ks_vmware_apis is in .bashrc"
+else
+    echo "Adding ks_vmware_apis to path"
+    echo 'export PATH="$HOME/ks_vmware_apis:$PATH"' >> .bashrc
+fi

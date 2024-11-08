@@ -1,0 +1,36 @@
+{
+    "actionOnStepFail": null, 
+    "concurrency": 1, 
+    "enabled": true, 
+    "externalUuid4": "068d4eba-c984-42e0-a1c3-6424c226a834", 
+    "isBlueprint": true, 
+    "key": "setupvcentersupportonlinux", 
+    "links": [
+        {
+            "stepKey": "installlibicuonlinux"
+        }, 
+        {
+            "stepKey": "powershellv745cleanuponlinux"
+        }, 
+        {
+            "stepKey": "powershellv745deployonlinux"
+        }, 
+        {
+            "stepKey": "powershellv745ensurepwshisinpath"
+        }, 
+        {
+            "stepKey": "powershellv745ensurepwshisexecutable"
+        }, 
+        {
+            "stepKey": "powershellv745testpwsh"
+        }, 
+        {
+            "stepKey": "deployvmwarepowercliv13onlinux"
+        }, 
+        {
+            "stepKey": "testvmwarepowerclionlinux"
+        }
+    ], 
+    "name": "Setup vCenter Support on Linux", 
+    "type": "com.servertribe.attune.tuples.StepGroupTuple"
+}

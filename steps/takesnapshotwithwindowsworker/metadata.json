@@ -1,16 +1,16 @@
 {
-    "actionOnStepFail": null, 
+    "actionOnStepFail": "stop", 
     "enabled": true, 
-    "externalUuid4": "c664783d-3dbf-4ac8-9ac5-9f4ba7cee391", 
+    "externalUuid4": "d3eef6a0-1e6d-4636-80e6-632a312c6105", 
     "interpreter": 2, 
     "interpreterCommand": "", 
     "interpreterScriptExt": null, 
     "interpreterScriptSyntax": "", 
-    "key": "addnewnetworkadaptorwithwindowsworker", 
-    "name": "Add New Network Adaptor with Windows Worker", 
+    "key": "takesnapshotwithwindowsworker", 
+    "name": "Take Snapshot with Windows Worker", 
     "osCredKey": "automationworkerwindowsuseradministrator", 
     "serverKey": "automationworkerwindowsnode", 
     "successExitCode": 0, 
-    "timeout": 1800, 
+    "timeout": 120, 
     "type": "com.servertribe.attune.tuples.StepWinRmTuple"
 }

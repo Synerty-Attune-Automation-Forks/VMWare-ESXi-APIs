@@ -1,0 +1,25 @@
+$ErrorActionPreference = "Stop"
+Import-Module VMware.VimAutomation.Core
+
+Connect-VIServer {vmwareVcenterServer.ip} `
+    -User {vmwareVcenterUser.user} `
+    -Password {vmwareVcenterUser.password}
+
+$existing = Get-VM "{newVmNode.fqn}"
+
+# Get the most recent snapshot
+$latestSnapshot = Get-Snapshot -VM $existing `
+    | Sort-Object Created -Descending `
+    | Select-Object -First 1
+
+if ($latestSnapshot) {
+    # Revert to the most recent snapshot
+    Set-VM -VM $existing -Snapshot $latestSnapshot -Confirm:$false
+
+    Write-Host "Reverted to snapshot '$($latestSnapshot.Name)' created on $($latestSnapshot.Created)"
+    
+} else {
+    Write-Error "No snapshots found"
+    
+}
+

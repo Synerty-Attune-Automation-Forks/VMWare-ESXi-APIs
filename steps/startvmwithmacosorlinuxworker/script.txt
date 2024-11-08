@@ -1,5 +1,5 @@
 
-pwsh -NonInteractive -NoProfile -Command - <<'EOF'
+TERM=dumb pwsh -NonInteractive -NoProfile -Command - <<'EOF'
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 

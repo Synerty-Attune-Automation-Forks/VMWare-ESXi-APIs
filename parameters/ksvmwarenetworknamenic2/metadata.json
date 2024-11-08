@@ -1,0 +1,7 @@
+{
+    "externalUuid4": "77ad559a-376b-473f-904f-5bc7284a8772", 
+    "key": "ksvmwarenetworknamenic2", 
+    "name": "KS VMWare Network Name NIC2", 
+    "showInPlan": true, 
+    "type": "c.s.s.b.phv.Text"
+}

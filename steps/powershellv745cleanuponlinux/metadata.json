@@ -1,10 +1,10 @@
 {
     "actionOnStepFail": "stop", 
     "enabled": true, 
-    "externalUuid4": "202c7a37-e425-41e4-883f-1cf0d0cd001c", 
+    "externalUuid4": "209c3948-9e4e-4487-8677-9fdf6486b44c", 
     "interpreter": 1, 
-    "key": "addnewnetworkadaptorwithmacosorlinuxworker", 
-    "name": "Add New Network Adaptor with macOS or Linux Worker", 
+    "key": "powershellv745cleanuponlinux", 
+    "name": "Powershell v7.4.5 Cleanup on Linux", 
     "osCredKey": "automationworkerlinuxuser", 
     "serverKey": "automationworkerlinuxnode", 
     "successExitCode": 0, 
