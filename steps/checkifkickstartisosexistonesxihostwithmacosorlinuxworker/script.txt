@@ -1,26 +1,44 @@
 
-pwsh -NonInteractive -NoProfile -Command - <<'EOF'
+TERM=dumb pwsh -NonInteractive -NoProfile -Command - <<'EOF'
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 Import-Module VMware.VimAutomation.Core
 
-Connect-VIServer {vmwareVcenterNode.ip} `
-    -User "{vmwareVcenterUser.user}" `
-    -Password '{vmwareVcenterUser.password}'
+try {
+    Connect-VIServer {vmwareVcenterNode.ip} `
+        -User "{vmwareVcenterUser.user}" `
+        -Password '{vmwareVcenterUser.password}' `
+        -ErrorAction Stop
+    Write-Verbose "Successfully connected to VIServer"
 
-if ($? -eq $false) {
-    Write-Host "Error: Not connected."
+} catch {
+    Write-Error "Failed to connect to VIServer: $_"
     exit 1
 }
 
+Start-Sleep -Seconds 5
+
 # Get the Datastore
-$datastore = Get-Datastore -Name '{vmStoragePoolName}'
-$datastore
+$datastore = Get-Datastore -Name 
+
+try {
+    $datastore = Get-Datastore -Name '{vmStoragePoolName}' -ErrorAction Stop
+    Write-Verbose "Successfully retrieved datastore: $($datastore.Name)"
+} catch {
+    Write-Error "Failed to get datastore: $_"
+    exit 1
+}
+
+if ($datastore -eq $null) {
+    Write-Host "Error: Datastore not found or not accessible."
+    exit 1
+}
 
 # Create the DS drive
 if (Test-Path "ds:") {
-    Remove-PSDrive ds -Force
+   Remove-PSDrive ds -Force -ErrorAction SilentlyContinue
+   Write-Verbose "Removed existing ds: drive"
 }
 
 if ($datastore -is [System.Array]) {
@@ -28,22 +46,21 @@ if ($datastore -is [System.Array]) {
     $datastore = $datastore[0]
 }
 
-New-PSDrive -Location $datastore -Name ds -PSProvider VimDatastore -Root ""
+try {
+    New-PSDrive -Location $datastore -Name ds -PSProvider VimDatastore -Root "" -ErrorAction Stop
+} catch {
+    Write-Error "Error creating PSDrive: $_"
+    exit 1
+}
+
 
 $vmwareBootIsoDirectory = "/kickstart_isos"
-
-# Ensure the destination dir exists
-$KICKSTART_ISOS_DIR="ds:$vmwareBootIsoDirectory/"
-$KICKSTART_ISOS_DIR = $KICKSTART_ISOS_DIR -Replace "/","\"
-Write-Host "KICKSTART_ISOS_DIR=$KICKSTART_ISOS_DIR"
-
-Get-Location
-
-if (-Not (Test-Path $KICKSTART_ISOS_DIR)) {
-    Write-host "Please create a $vmwareBootIsoDirectory directory on the ESXi Host."
-    exit 1
+$folderPath = "ds:$vmwareBootIsoDirectory"
+if (!(Test-Path $folderPath)) {
+    New-Item -Path $folderPath -ItemType Directory
+    Write-Host "Created directory: $vmwareBootIsoDirectory"
 } else {
-    Write-host "$vmwareBootIsoDirectory directory exists on the ESXi Host. Great."
+    Write-Host "$vmwareBootIsoDirectory directory exists on the ESXi Host. Great."
 }
 
 # Remove the DS Drive
