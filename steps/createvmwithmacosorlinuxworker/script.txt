@@ -36,10 +36,10 @@ if ( "{vmwareEsxiHost.fqn}" -eq "{vmwareVcenterNode.fqn}" ) {
 
 } else {
     Write-Host "We're talking to a vCenter server, pass the -VMHost arg"
-    $storagePool = Get-VMHost -Name '{vmwareEsxiHost.ip}' | Get-Datastore -Name '{vmStoragePoolName}' 
+    $storagePool = Get-VMHost -Name '{vmwareEsxiHost.fqn}' | Get-Datastore -Name '{vmStoragePoolName}' 
     
     $vm = New-VM `
-        -VMHost "{vmwareEsxiHost.ip}" `
+        -VMHost "{vmwareEsxiHost.fqn}" `
         -Name "$name" `
         -Datastore "$storagePool" `
         -CoresPerSocket $cpuCount `
